@@ -1,10 +1,14 @@
 <?php
 
+
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 use Slim\Views\PhpRenderer;
 
 require '../vendor/autoload.php';
+
+
+
 use RapidApi\RapidApiConnect;
 
 $app = new \Slim\App([
@@ -12,6 +16,8 @@ $app = new \Slim\App([
         'displayErrorDetails' => true
     ]
 ]);
+
+
 // Get container
 $container = $app->getContainer();
 require_once("dependencies.php");
@@ -66,6 +72,7 @@ $app->post('/ajax/uploadFile', function (Request $request, Response $response) u
 });
 
 $app->get('/', function (Request $request, Response $response) {
+
     $rapid = new RapidApiConnect("Demo", "e0e4f9cc-c076-4cae-ad5b-f5d49beacd8a");
     $result = $rapid->call('RapidAPI', 'getAll', [
         "sortBy" => "lastUpdated",
@@ -223,7 +230,6 @@ $app->get('/{package}/{block}', function (Request $request, Response $response, 
 
         return $this->renderer->render($response, "/stage.php", $data);
     }
-
 
 });
 
